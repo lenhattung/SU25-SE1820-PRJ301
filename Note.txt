@@ -10,3 +10,12 @@ B. Nền tảng làm việc / Tài liệu
 Key: Z+::5oeIfPGzkgW0A1TD
 + https://fu-edunext.fpt.edu.vn/
 + https://flm.fpt.edu.vn/DefaultSignin
+
+C. Tools
+1.	Về tool lập trình: IDE tool là Netbeans 13
+2.	JDK: 8 Update 172
+3.	Web Server: Tomcat 10.0.27
+4.	DB Server: MS SQL Server 2019, sử dụng, thư viện kết nối DB: sqljdbc4.jar
+5.	Trình duyệt: Các browsers (chỉ sử dụng duy nhất một trình duyệt tại thời điểm thi PE)
+6.	Việc thi PE chỉ được mở các tool trên (1 -> 5) cùng Windows Explorer, WinZip để nén. Tất cả các công cụ khác ngoài các công cụ nêu trên (cho dù mở vô tình hay mở không sử dụng) sẽ coi như là vi phạm qui chế thi và sẽ bị 0 điểm PE
+
