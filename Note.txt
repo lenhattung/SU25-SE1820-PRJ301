@@ -19,3 +19,37 @@ C. Tools
 5.	Trình duyệt: Các browsers (chỉ sử dụng duy nhất một trình duyệt tại thời điểm thi PE)
 6.	Việc thi PE chỉ được mở các tool trên (1 -> 5) cùng Windows Explorer, WinZip để nén. Tất cả các công cụ khác ngoài các công cụ nêu trên (cho dù mở vô tình hay mở không sử dụng) sẽ coi như là vi phạm qui chế thi và sẽ bị 0 điểm PE
 
+D. Quy định điểm danh
++ Điểm danh đầu giờ (sau 5 phút)
++ Vắng tối đa 4 slot.
+
+E. Đánh giá môn học
+1. Assignment	on-going	x1	x30.0% : 
++ Xây dựng một website hoàn chỉnh, chủ đề tự chọn, tuân thủ quy định về đánh giá chung.
++ Nhóm 3 người.
++ Github Repo => đánh giá tương tác.
++ Đánh giá: vào 2 slots cuối.
+
+2. Progress Test 	on-going	x2	x5.0% = 10.0%
++ Chuyên cần: 50%
++ Quiz: 50% => Vắng 1 slot -1.5đ.
+
+3. Workshop 1	on-going	x	x5.0%	= 10.0%
++ Lập trình theo yêu cầu đề.
++ Nộp sản phẩm trên LMS.
++ Trình bày vấn đáp.
+
+4. Practical Exam	on-going	1	30.0%
+
+5. Final Exam	final exam	1	20.0%
+
+6. Cộng điểm
++ Tham gia thảo luận trên edunext:
+Tối thiểu 15/20 slot (tương ứng 45 câu hỏi).
+=> Cộng mỗi bài workshop 1 điểm.
+
++ Web Applications for Everybody Specialization - Cousera certificate 
+– Địa chỉ: https://www.coursera.org/specializations/web-applications
+- Hoàn thành và lấy được chứng chỉ: +1.5 -> +2.0 đ => Assignment.
+
+
