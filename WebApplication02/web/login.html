@@ -1,13 +1,25 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>Login Page</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    </head>
-    <body>
-        <form>
-            
+<head>
+    <title>Login Page</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Link đến file CSS -->
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+    <div class="login-container">
+        <form action="#" method="post" class="login-form">
+            <h2>Login</h2>
+            <label>Username:</label>
+            <input type="text" name="txtUsername" required />
+            <label>Password:</label>
+            <input type="password" name="txtPassword" required />
+            <div class="form-buttons">
+                <input type="submit" value="Login" />
+                <input type="reset" value="Reset" />
+            </div>
         </form>
-    </body>
+    </div>
+</body>
 </html>
