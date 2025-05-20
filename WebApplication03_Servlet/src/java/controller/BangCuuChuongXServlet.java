@@ -29,26 +29,28 @@ public class BangCuuChuongXServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try ( PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet BangCuuChuongServlet</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            
+        PrintWriter out = response.getWriter();
+        /* TODO output your page here. You may use following sample code. */
+        out.println("<!DOCTYPE html>");
+        out.println("<html>");
+        out.println("<head>");
+        out.println("<title>Servlet BangCuuChuongServlet</title>");
+        out.println("</head>");
+        out.println("<body>");
+        try {
             String strX = request.getParameter("x");
             int i = Integer.parseInt(strX);
-            out.println("<h3>Bang cuu chuong "+i+"</h3>");
+            out.println("<h3>Bang cuu chuong " + i + "</h3>");
             for (int j = 1; j < 10; j++) {
-                out.println(i+"*"+j+"="+i*j+"<br/>");
+                out.println(i + "*" + j + "=" + i * j + "<br/>");
             }
             out.println("<hr/>");
-            
-            out.println("</body>");
-            out.println("</html>");
+        } catch (Exception e) {
+            out.println("Da xay ra loi khong mong muon!");
         }
+        out.println("</body>");
+        out.println("</html>");
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
