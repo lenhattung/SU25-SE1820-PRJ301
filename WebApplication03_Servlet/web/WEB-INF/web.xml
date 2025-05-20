@@ -12,6 +12,10 @@
         <servlet-name>BangCuuChuongServlet</servlet-name>
         <servlet-class>controller.BangCuuChuongServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>BangCuuChuongXServlet</servlet-name>
+        <servlet-class>controller.BangCuuChuongXServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>WelcomeServlet</servlet-name>
         <url-pattern>/WelcomeServlet</url-pattern>
@@ -23,6 +27,10 @@
     <servlet-mapping>
         <servlet-name>BangCuuChuongServlet</servlet-name>
         <url-pattern>/BangCuuChuongServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>BangCuuChuongXServlet</servlet-name>
+        <url-pattern>/BangCuuChuongXServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
