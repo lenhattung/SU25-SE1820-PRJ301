@@ -13,5 +13,10 @@
             Password: <input type="password" name="strPassword" /> <br/> 
             <input type="Submit" value="Login" />
         </form>
+        <%
+            Object objMessage = request.getAttribute("message");
+            String message = objMessage==null?"":(objMessage+"");
+        %>
+        <span style="color: red"><%=message%></span>
     </body>
 </html>

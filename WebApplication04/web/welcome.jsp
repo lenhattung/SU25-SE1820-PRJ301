@@ -12,6 +12,9 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <h1>Welcome .... !</h1>
+        <%
+          String username = request.getAttribute("username")+"";  
+        %>
+        <h1>Welcome <%=username%> !</h1>
     </body>
 </html>

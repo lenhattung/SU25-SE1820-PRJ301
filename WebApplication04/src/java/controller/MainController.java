@@ -33,9 +33,11 @@ public class MainController extends HttpServlet {
                 if(strUsername.equals("admin")&&strPassword.equals("admin")){
                     // di den trang welcome.jsp
                     url = "welcome.jsp";
+                    request.setAttribute("username", strUsername);
                 }else{
                     // di den trang login.jsp
                     url = "login.jsp";
+                    request.setAttribute("message", "Username or Password incorrect!");
                 }
             }
             //----------------------
