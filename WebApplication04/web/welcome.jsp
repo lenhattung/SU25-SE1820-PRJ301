@@ -5,6 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page import="model.UserDTO"%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -12,9 +13,11 @@
         <title>JSP Page</title>
     </head>
     <body>
+       
+        
         <%
-          String username = request.getAttribute("username")+"";  
+          UserDTO user = (UserDTO)request.getAttribute("user");  
         %>
-        <h1>Welcome <%=username%> !</h1>
+        <h1>Welcome <%=user.getFullName()%> !</h1>
     </body>
 </html>

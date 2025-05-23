@@ -15,7 +15,7 @@
         </form>
         <%
             Object objMessage = request.getAttribute("message");
-            String message = objMessage==null?"":(objMessage+"");
+            String message = (objMessage==null)?"":(objMessage+"");
         %>
         <span style="color: red"><%=message%></span>
     </body>

@@ -11,6 +11,8 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import model.UserDAO;
+import model.UserDTO;
 
 /**
  *
@@ -30,10 +32,12 @@ public class MainController extends HttpServlet {
             if(action.equals("login")){
                 String strUsername = request.getParameter("strUsername");
                 String strPassword = request.getParameter("strPassword");
-                if(strUsername.equals("admin")&&strPassword.equals("admin")){
+                UserDAO userDAO = new UserDAO();
+                if(userDAO.login(strUsername, strPassword)){
+                    UserDTO user = userDAO.getUserById(strUsername);
                     // di den trang welcome.jsp
                     url = "welcome.jsp";
-                    request.setAttribute("username", strUsername);
+                    request.setAttribute("user", user);
                 }else{
                     // di den trang login.jsp
                     url = "login.jsp";
