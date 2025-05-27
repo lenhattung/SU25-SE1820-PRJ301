@@ -4,38 +4,76 @@
  */
 package model;
 
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.ArrayList;
+import sun.text.normalizer.UBiDiProps;
+import utils.DbUtils;
 
 /**
  *
  * @author tungi
  */
 public class UserDAO {
-    ArrayList<UserDTO> list;
 
     public UserDAO() {
-        this.list = new ArrayList<>();
-        list.add(new UserDTO("admin", "Administrator", "1", "AD", true));
-        list.add(new UserDTO("se190011", "Tran Manh Hung", "hcm", "MB", true));
     }
-    
-    public boolean login(String userID, String password){
-        for (UserDTO userDTO : list) {
-            if(userDTO.getUserID().equalsIgnoreCase(userID)
-                    && userDTO.getPassword().equals(password)
-              ){
-                return true;
+
+    public boolean login(String userID, String password) {
+        try {
+            String sql = "SELECT * FROM tblUsers "
+                    + " WHERE userID='" + userID + "' AND password='" + password + "'";
+            // B1 - Ket noi
+            Connection conn = DbUtils.getConnection();
+
+            // B2 - Tao cong cu thuc thi cau lenh
+            Statement st = conn.createStatement();
+            ResultSet rs = st.executeQuery(sql);
+
+            // B3 - Duyet bang 
+            while (rs.next()) {
+                String userId = rs.getString("userID");
+                String fullName = rs.getString("fullName");
+                String password1 = rs.getString("password");
+                String roleID = rs.getString("roleID");
+                boolean status = rs.getBoolean("status");
+
+                UserDTO userDTO = new UserDTO(userId, fullName, password1, roleID, status);
+                if(userDTO.isStatus())
+                    return true;
             }
+            return false;
+        } catch (Exception e) {
+            return false;
         }
-        return false;
     }
-    
-    public UserDTO getUserById(String userID){
-         for (UserDTO userDTO : list) {
-            if(userDTO.getUserID().equalsIgnoreCase(userID)){
+
+    public UserDTO getUserById(String userID) {
+        try {
+            String sql = "SELECT * FROM tblUsers "
+                    + " WHERE userID='" + userID +"'";
+            // B1 - Ket noi
+            Connection conn = DbUtils.getConnection();
+
+            // B2 - Tao cong cu thuc thi cau lenh
+            Statement st = conn.createStatement();
+            ResultSet rs = st.executeQuery(sql);
+
+            // B3 - Duyet bang 
+            while (rs.next()) {
+                String userId = rs.getString("userID");
+                String fullName = rs.getString("fullName");
+                String password1 = rs.getString("password");
+                String roleID = rs.getString("roleID");
+                boolean status = rs.getBoolean("status");
+
+                UserDTO userDTO = new UserDTO(userId, fullName, password1, roleID, status);
                 return userDTO;
             }
+            return null;
+        } catch (Exception e) {
+            return null;
         }
-        return null;
     }
 }
