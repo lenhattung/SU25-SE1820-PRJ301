@@ -13,8 +13,6 @@
         <title>JSP Page</title>
     </head>
     <body>
-
-
         <%
             Object objUser = session.getAttribute("user");
             UserDTO user = (objUser != null) ? (UserDTO) objUser : null;

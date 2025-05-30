@@ -117,10 +117,10 @@ public class UserController extends HttpServlet {
         UserDAO userDAO = new UserDAO();
         try {
             HttpSession session = request.getSession();
-            if(session!=null){
+            if (session != null) {
                 Object objUser = session.getAttribute("user");
-                UserDTO user = (objUser!=null)?(UserDTO)objUser:null;
-                if(user!=null){
+                UserDTO user = (objUser != null) ? (UserDTO) objUser : null;
+                if (user != null) {
                     // Invalidate session
                     session.invalidate();
                 }
