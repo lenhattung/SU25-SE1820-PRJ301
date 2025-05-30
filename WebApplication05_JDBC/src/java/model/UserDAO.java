@@ -42,7 +42,7 @@ public class UserDAO {
                     + " WHERE userID='?'";
             // B1 - Ket noi
             Connection conn = DbUtils.getConnection();
-
+            //
             // B2 - Tao cong cu thuc thi cau lenh
             PreparedStatement pr = conn.prepareStatement(sql);
             pr.setString(1, userID);
