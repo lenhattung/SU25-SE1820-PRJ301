@@ -6,58 +6,42 @@ package controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import jakarta.servlet.ServletException;
-import jakarta.servlet.annotation.WebServlet;
-import jakarta.servlet.http.HttpServlet;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
-import model.UserDAO;
-import model.UserDTO;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  *
  * @author tungi
  */
-@WebServlet(name = "MainController", urlPatterns = {"/MainController"})
-public class MainController extends HttpServlet {
+@WebServlet(name = "ProductController", urlPatterns = {"/ProductController"})
+public class ProductController extends HttpServlet {
 
-    private static final String WELCOME = "login.jsp";
-
-    private boolean isUserAction(String action) {
-        return "login".equals(action)
-                || "logout".equals(action)
-                || "register".equals(action)
-                || "updateProfile".equals(action)
-                || "viewProfile".equals(action)
-                || "changePassword".equals(action);
-    }
-
-    private boolean isProductAction(String action) {
-        return "listProducts".equals(action)
-                || "addProduct".equals(action)
-                || "updateProduct".equals(action)
-                || "deleteProduct".equals(action)
-                || "searchProduct".equals(action);
-    }
-
+    /**
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
+     * methods.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String url = WELCOME; // url => location di den sau khi xu ly
-        try {
-            String action = request.getParameter("action");
-            //---- Xu ly cac action cua User -----
-            if (isUserAction(action)) {
-                request.getRequestDispatcher("/UserController").forward(request, response);
-                return;
-            } else if (isProductAction(action)) {
-                request.getRequestDispatcher("/ProductController").forward(request, response);
-                return;
-            }
-            //----------------------
-        } catch (Exception e) {
-        } finally {
-            request.getRequestDispatcher(url).forward(request, response);
+        try ( PrintWriter out = response.getWriter()) {
+            /* TODO output your page here. You may use following sample code. */
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet ProductController</title>");            
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>Servlet ProductController at " + request.getContextPath() + "</h1>");
+            out.println("</body>");
+            out.println("</html>");
         }
     }
 

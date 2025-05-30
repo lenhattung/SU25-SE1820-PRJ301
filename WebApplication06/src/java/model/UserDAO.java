@@ -39,14 +39,14 @@ public class UserDAO {
     public UserDTO getUserById(String userID) {
         try {
             String sql = "SELECT * FROM tblUsers "
-                    + " WHERE userID='?'";
+                    + " WHERE userID=?";
             // B1 - Ket noi
             Connection conn = DbUtils.getConnection();
             //
             // B2 - Tao cong cu thuc thi cau lenh
             PreparedStatement pr = conn.prepareStatement(sql);
             pr.setString(1, userID);
-            ResultSet rs = pr.executeQuery(sql);
+            ResultSet rs = pr.executeQuery();
 
             // B3 - Duyet bang 
             while (rs.next()) {
