@@ -28,9 +28,11 @@ public class UserController extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         String url = LOGIN_PAGE;
+        System.out.println("1");
         try {
             String action = request.getParameter("action");
             if ("login".equals(action)) {
+                System.out.println("2");
                 url = handleLogin(request, response);
             } else if ("logout".equals(action)) {
                 url = handleLogout(request, response);
@@ -92,7 +94,8 @@ public class UserController extends HttpServlet {
     }// </editor-fold>
 
     private String handleLogin(HttpServletRequest request, HttpServletResponse response) {
-        String url = "";
+        System.out.println("3");
+        String url = LOGIN_PAGE;
         String strUsername = request.getParameter("strUsername");
         String strPassword = request.getParameter("strPassword");
         UserDAO userDAO = new UserDAO();

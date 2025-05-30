@@ -48,15 +48,13 @@ public class MainController extends HttpServlet {
             String action = request.getParameter("action");
             //---- Xu ly cac action cua User -----
             if (isUserAction(action)) {
-                request.getRequestDispatcher("/UserController").forward(request, response);
-                return;
+                url = "/UserController";
             } else if (isProductAction(action)) {
-                request.getRequestDispatcher("/ProductController").forward(request, response);
-                return;
+                url = "/ProductController";
             }
-            //----------------------
         } catch (Exception e) {
         } finally {
+            System.out.println(url);
             request.getRequestDispatcher(url).forward(request, response);
         }
     }
