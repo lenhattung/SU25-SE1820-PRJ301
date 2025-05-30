@@ -5,12 +5,12 @@
 package controller;
 
 import java.io.IOException;
-import java.io.PrintWriter;
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import model.UserDAO;
 import model.UserDTO;
 
@@ -94,8 +94,8 @@ public class UserController extends HttpServlet {
     }// </editor-fold>
 
     private String handleLogin(HttpServletRequest request, HttpServletResponse response) {
-        System.out.println("3");
         String url = LOGIN_PAGE;
+        HttpSession session = request.getSession();
         String strUsername = request.getParameter("strUsername");
         String strPassword = request.getParameter("strPassword");
         UserDAO userDAO = new UserDAO();
@@ -103,7 +103,7 @@ public class UserController extends HttpServlet {
             UserDTO user = userDAO.getUserById(strUsername);
             // di den trang welcome.jsp
             url = WELCOME_PAGE;
-            request.setAttribute("user", user);
+            session.setAttribute("user", user);
         } else {
             // di den trang login.jsp
             url = LOGIN_PAGE;
@@ -113,7 +113,21 @@ public class UserController extends HttpServlet {
     }
 
     private String handleLogout(HttpServletRequest request, HttpServletResponse response) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        String url = LOGIN_PAGE;
+        UserDAO userDAO = new UserDAO();
+        try {
+            HttpSession session = request.getSession();
+            if(session!=null){
+                Object objUser = session.getAttribute("user");
+                UserDTO user = (objUser!=null)?(UserDTO)objUser:null;
+                if(user!=null){
+                    // Invalidate session
+                    session.invalidate();
+                }
+            }
+        } catch (Exception e) {
+        }
+        return url;
     }
 
     private String handleRegister(HttpServletRequest request, HttpServletResponse response) {

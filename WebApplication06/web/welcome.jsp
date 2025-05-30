@@ -13,12 +13,19 @@
         <title>JSP Page</title>
     </head>
     <body>
-       
-        
+
+
         <%
-          UserDTO user = (UserDTO)request.getAttribute("user");  
+            Object objUser = session.getAttribute("user");
+            UserDTO user = (objUser != null) ? (UserDTO) objUser : null;
+            if(user==null){
+                response.sendRedirect("MainController");
+            }else{
         %>
-        <h1>Welcome <%=user.getFullName()%> !</h1>
-        <a href="MainController?action=logout">Logout</a>
+                <h1>Welcome <%=user.getFullName()%> !</h1>
+                <a href="MainController?action=logout">Logout</a>
+        <%
+            }
+        %>
     </body>
 </html>

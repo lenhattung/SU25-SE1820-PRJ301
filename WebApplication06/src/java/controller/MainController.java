@@ -21,7 +21,7 @@ import model.UserDTO;
 @WebServlet(name = "MainController", urlPatterns = {"/MainController"})
 public class MainController extends HttpServlet {
 
-    private static final String WELCOME = "login.jsp";
+    private static final String LOGIN_PAGE = "login.jsp";
 
     private boolean isUserAction(String action) {
         return "login".equals(action)
@@ -43,7 +43,7 @@ public class MainController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String url = WELCOME; // url => location di den sau khi xu ly
+        String url = LOGIN_PAGE; // url => location di den sau khi xu ly
         try {
             String action = request.getParameter("action");
             //---- Xu ly cac action cua User -----
