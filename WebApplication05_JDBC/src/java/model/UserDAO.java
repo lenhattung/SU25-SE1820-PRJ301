@@ -1,3 +1,5 @@
+
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
@@ -6,7 +8,6 @@ package model;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
-import java.sql.PreparedStatement;
 import java.sql.Statement;
 import java.util.ArrayList;
 import sun.text.normalizer.UBiDiProps;
@@ -24,9 +25,9 @@ public class UserDAO {
     public boolean login(String userID, String password) {
         try {
             UserDTO user = getUserById(userID);
-            if (user != null) {
-                if (user.getPassword().equals(password)) {
-                    if (user.isStatus()) {
+            if(user!=null){
+                if(user.getPassword().equals(password)){
+                    if(user.isStatus()){
                         return true;
                     }
                 }
@@ -39,14 +40,13 @@ public class UserDAO {
     public UserDTO getUserById(String userID) {
         try {
             String sql = "SELECT * FROM tblUsers "
-                    + " WHERE userID='?'";
+                    + " WHERE userID='" + userID +"'";
             // B1 - Ket noi
             Connection conn = DbUtils.getConnection();
-            //
+
             // B2 - Tao cong cu thuc thi cau lenh
-            PreparedStatement pr = conn.prepareStatement(sql);
-            pr.setString(1, userID);
-            ResultSet rs = pr.executeQuery(sql);
+            Statement st = conn.createStatement();
+            ResultSet rs = st.executeQuery(sql);
 
             // B3 - Duyet bang 
             while (rs.next()) {
