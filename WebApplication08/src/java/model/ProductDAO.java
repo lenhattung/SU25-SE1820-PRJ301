@@ -20,8 +20,8 @@ public class ProductDAO {
     // SQL Queries
     private static final String GET_ALL_PRODUCTS = "SELECT id, name, description, price, size, status FROM tblProducts";
     private static final String GET_PRODUCT_BY_ID = "SELECT id, name, description, price, size, status FROM tblProducts WHERE id = ?";
-    private static final String CREATE_PRODUCT = "INSERT INTO tblProducts (id, name, description, price, size, status) VALUES (?, ?, ?, ?, ?, ?)";
-    private static final String UPDATE_PRODUCT = "UPDATE tblProducts SET name = ?, description = ?, price = ?, size = ?, status = ? WHERE id = ?";
+    private static final String CREATE_PRODUCT = "INSERT INTO tblProducts (id, name,image, description, price, size, status) VALUES (?, ?, ?, ?, ?, ?, ?)";
+    private static final String UPDATE_PRODUCT = "UPDATE tblProducts SET name = ?, image=?, description = ?, price = ?, size = ?, status = ? WHERE id = ?";
     private static final String DELETE_PRODUCT = "DELETE FROM tblProducts WHERE id = ?";
 
     public List<ProductDTO> getAll() {
@@ -39,6 +39,7 @@ public class ProductDAO {
                 ProductDTO product = new ProductDTO();
                 product.setId(rs.getString("id"));
                 product.setName(rs.getString("name"));
+                product.setImage(rs.getString("image"));
                 product.setDescription(rs.getString("description"));
                 product.setPrice(rs.getDouble("price"));
                 product.setSize(rs.getString("size"));
@@ -78,6 +79,7 @@ public class ProductDAO {
                 product = new ProductDTO();
                 product.setId(rs.getString("id"));
                 product.setName(rs.getString("name"));
+                product.setImage(rs.getString("image"));
                 product.setDescription(rs.getString("description"));
                 product.setPrice(rs.getDouble("price"));
                 product.setSize(rs.getString("size"));
@@ -110,10 +112,11 @@ public class ProductDAO {
 
             ps.setString(1, product.getId());
             ps.setString(2, product.getName());
-            ps.setString(3, product.getDescription());
-            ps.setDouble(4, product.getPrice());
-            ps.setString(5, product.getSize());
-            ps.setBoolean(6, product.isStatus());
+            ps.setString(3, product.getImage());
+            ps.setString(4, product.getDescription());
+            ps.setDouble(5, product.getPrice());
+            ps.setString(6, product.getSize());
+            ps.setBoolean(7, product.isStatus());
 
             int rowsAffected = ps.executeUpdate();
             success = (rowsAffected > 0);
@@ -144,11 +147,12 @@ public class ProductDAO {
             ps = conn.prepareStatement(UPDATE_PRODUCT);
 
             ps.setString(1, product.getName());
-            ps.setString(2, product.getDescription());
-            ps.setDouble(3, product.getPrice());
-            ps.setString(4, product.getSize());
-            ps.setBoolean(5, product.isStatus());
-            ps.setString(6, product.getId()); // WHERE condition
+            ps.setString(2, product.getImage());
+            ps.setString(3, product.getDescription());
+            ps.setDouble(4, product.getPrice());
+            ps.setString(5, product.getSize());
+            ps.setBoolean(6, product.isStatus());
+            ps.setString(7, product.getId()); // WHERE condition
 
             int rowsAffected = ps.executeUpdate();
             success = (rowsAffected > 0);
@@ -250,6 +254,7 @@ public class ProductDAO {
                 ProductDTO product = new ProductDTO();
                 product.setId(rs.getString("id"));
                 product.setName(rs.getString("name"));
+                product.setImage(rs.getString("image"));
                 product.setDescription(rs.getString("description"));
                 product.setPrice(rs.getDouble("price"));
                 product.setSize(rs.getString("size"));
