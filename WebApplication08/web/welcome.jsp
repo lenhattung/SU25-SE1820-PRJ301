@@ -22,6 +22,12 @@
         %>
         <h1>Welcome <%=user.getFullName()%> !</h1>
         <a href="MainController?action=logout">Logout</a>
+        <hr/>
+        Search by name: 
+        <form action="MainController" method="post">
+            <input type="text" name="strKeyword" />
+            <input type="submit" value="Search"/>
+        </form>
         <%
             }
         %>
