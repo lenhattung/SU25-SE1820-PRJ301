@@ -177,7 +177,7 @@ public class ProductController extends HttpServlet {
     private String handleProductUpdating(HttpServletRequest request, HttpServletResponse response) {
         String checkError = "";
         String message = "";
-        String keyword = request.getParameter("keyword");
+        String keyword = request.getParameter("strKeyword");
 
         if (AuthUtils.isAdmin(request)) {
             // Lấy thông tin từ form
@@ -213,7 +213,6 @@ public class ProductController extends HttpServlet {
                 if (pdao.update(product)) {
                     message = "Update product successfully!";
                     // Quay về trang welcome với từ khóa tìm kiếm
-                    request.setAttribute("keyword", keyword);
                     return handleProductSearching(request, response);
                 } else {
                     checkError = "Can not update product!";

@@ -366,7 +366,7 @@
                 <input type="hidden" name="action" value="<%=isEdit ? "updateProduct" : "addProduct"%>"/>
                
                 <% if(keyword != null) { %>
-                    <input type="hidden" name="keyword" value="<%=keyword%>"/>
+                    <input type="hidden" name="strKeyword" value="<%=keyword%>"/>
                 <% } %>
                 
                 <div>
