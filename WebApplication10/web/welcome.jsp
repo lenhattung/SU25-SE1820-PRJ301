@@ -62,6 +62,22 @@
                 background-color: #b71c1c;
             }
 
+            /* Add Product Button */
+            .add-product-btn {
+                background-color: #28a745;
+                color: white;
+                padding: 10px 20px;
+                text-decoration: none;
+                border-radius: 4px;
+                font-size: 14px;
+                transition: background-color 0.3s;
+                margin-left: 10px;
+            }
+
+            .add-product-btn:hover {
+                background-color: #218838;
+            }
+
             /* Search Form Styles */
             .search-section {
                 margin: 25px 0;
@@ -189,6 +205,52 @@
                 color: #007bff;
             }
 
+            /* Action buttons styling */
+            .action-buttons {
+                display: flex;
+                gap: 5px;
+                align-items: center;
+            }
+
+            .edit-btn {
+                background-color: #ffc107;
+                color: #212529;
+                padding: 6px 12px;
+                border: none;
+                border-radius: 4px;
+                cursor: pointer;
+                font-size: 12px;
+                transition: background-color 0.3s;
+                text-decoration: none;
+                display: inline-block;
+            }
+
+            .edit-btn:hover {
+                background-color: #e0a800;
+                color: #212529;
+                text-decoration: none;
+            }
+
+            .delete-btn {
+                background-color: #dc3545;
+                color: white;
+                padding: 6px 12px;
+                border: none;
+                border-radius: 4px;
+                cursor: pointer;
+                font-size: 12px;
+                transition: background-color 0.3s;
+            }
+
+            .delete-btn:hover {
+                background-color: #c82333;
+            }
+
+            .delete-form {
+                display: inline-block;
+                margin: 0;
+            }
+
             /* Responsive Design */
             @media screen and (max-width: 768px) {
                 .container {
@@ -218,6 +280,16 @@
                 th, td {
                     padding: 8px 6px;
                 }
+
+                .action-buttons {
+                    flex-direction: column;
+                    gap: 3px;
+                }
+
+                .edit-btn, .delete-btn {
+                    width: 100%;
+                    text-align: center;
+                }
             }
         </style>
     </head>
@@ -234,18 +306,25 @@
         <div class="container">
             <div class="header-section">
                 <h1>Welcome <%=user.getFullName()%>!</h1>
-                <a href="MainController?action=logout" class="logout-btn">Logout</a>
+                <div>
+
+                    <a href="MainController?action=logout" class="logout-btn">Logout</a>
+                </div>
             </div>
 
             <div class="search-section">
                 <label class="search-label">Search by name:</label>
-                <form action="MainController" method="post" class="search-form">
+                <form action="ProductController" method="post" class="search-form">
                     <input type="hidden" name="action" value="searchProduct"/>
                     <input type="text" name="strKeyword" value="<%=keyword!=null?keyword:""%>" 
                            class="search-input" placeholder="Enter product name..."/>
                     <input type="submit" value="Search" class="search-btn"/>
                 </form>
             </div>
+
+            <% if(AuthUtils.isAdmin(request)) { %>
+            <a href="productForm.jsp" class="add-product-btn">Add New Product</a>
+            <% } %>
 
             <%
                 List<ProductDTO> list = (List<ProductDTO>)request.getAttribute("list");
@@ -255,9 +334,13 @@
             <div class="no-results">
                 No products have names that match the keyword!
             </div>
+
+
+
             <%
             }else if(list!=null && !list.isEmpty()){
             %>
+
             <div class="table-container">
                 <table>
                     <thead>
@@ -268,7 +351,9 @@
                             <th>Price</th>
                             <th>Size</th>
                             <th>Status</th>
+                                <% if(AuthUtils.isAdmin(request)) { %>
                             <th>Action</th>
+                                <% } %>
                         </tr>
                     </thead>
                     <tbody>
@@ -284,15 +369,31 @@
                             <td class="<%=p.isStatus() ? "status-true" : "status-false"%>">
                                 <%=p.isStatus() ? "Active" : "Inactive"%>
                             </td>
+                            <% if(AuthUtils.isAdmin(request)) { %>
                             <td>
-                                <input type="button" value="Edit"/>
-                                <form action="MainController" method="post">
-                                    <input type="hidden" name="action" value="changeProductStatus"/>
-                                    <input type="hidden" name="productId" value="<%=p.getId()%>"/>
-                                    <input type="hidden" name="strKeyword" value="<%=keyword!=null?keyword:""%>" />
-                                    <input type="submit" value="Delete"/>
-                                </form>
+                                <div class="action-buttons">
+                                    <!--
+                                    <a href="ProductController?action=editProduct&productId=<%=p.getId()%>&strKeyword=<%=keyword!=null?keyword:""%>" 
+                                       class="edit-btn">Edit</a>
+                                    -->
+                                    
+                                    <form action="MainController" method="post">
+                                        <input type="hidden" name="action" value="editProduct"/>
+                                        <input type="hidden" name="productId" value="<%=p.getId()%>"/>
+                                        <input type="hidden" name="strKeyword" value="<%=keyword!=null?keyword:""%>" />
+                                        <input type="submit" value="Edit" class="edit-btn" />
+                                    </form>
+                                        
+                                    <form action="MainController" method="post" class="delete-form">
+                                        <input type="hidden" name="action" value="changeProductStatus"/>
+                                        <input type="hidden" name="productId" value="<%=p.getId()%>"/>
+                                        <input type="hidden" name="strKeyword" value="<%=keyword!=null?keyword:""%>" />
+                                        <input type="submit" value="Delete" class="delete-btn"
+                                               onclick="return confirm('Are you sure you want to delete this product?')"/>
+                                    </form>
+                                </div>
                             </td>
+                            <% } %>
                         </tr>
                         <%
                         }

@@ -50,6 +50,20 @@
                 letter-spacing: 1px;
                 text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
             }
+
+            /* Back to list link */
+            .back-link {
+                display: inline-block;
+                margin: 20px 30px 0 30px;
+                color: #667eea;
+                text-decoration: none;
+                font-weight: 500;
+                transition: color 0.3s;
+            }
+
+            .back-link:hover {
+                color: #764ba2;
+            }
             
             /* Form container */
             form {
@@ -98,6 +112,13 @@
                 transition: all 0.3s ease;
                 background-color: #fafafa;
             }
+
+            /* Readonly input styles */
+            input[readonly] {
+                background-color: #f5f5f5;
+                color: #666;
+                cursor: not-allowed;
+            }
             
             input[type="text"]:focus,
             input[type="number"]:focus,
@@ -107,6 +128,11 @@
                 background-color: white;
                 box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
                 transform: translateY(-2px);
+            }
+
+            input[readonly]:focus {
+                transform: none;
+                box-shadow: none;
             }
             
             /* Textarea specific styles */
@@ -152,7 +178,8 @@
             
             /* Button styles */
             input[type="submit"],
-            input[type="reset"] {
+            input[type="reset"],
+            .cancel-btn {
                 padding: 12px 30px;
                 border: none;
                 border-radius: 25px;
@@ -162,6 +189,9 @@
                 transition: all 0.3s ease;
                 text-transform: uppercase;
                 letter-spacing: 1px;
+                text-decoration: none;
+                display: inline-block;
+                text-align: center;
             }
             
             input[type="submit"] {
@@ -184,6 +214,19 @@
             input[type="reset"]:hover {
                 transform: translateY(-2px);
                 box-shadow: 0 6px 20px rgba(149, 165, 166, 0.4);
+            }
+
+            .cancel-btn {
+                background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+                color: white;
+                box-shadow: 0 4px 15px rgba(231, 76, 60, 0.3);
+            }
+
+            .cancel-btn:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 6px 20px rgba(231, 76, 60, 0.4);
+                text-decoration: none;
+                color: white;
             }
             
             /* Message styles */
@@ -253,7 +296,8 @@
                 }
                 
                 input[type="submit"],
-                input[type="reset"] {
+                input[type="reset"],
+                .cancel-btn {
                     width: 100%;
                     max-width: 200px;
                 }
@@ -282,6 +326,11 @@
                 border-color: #bbb;
                 background-color: white;
             }
+
+            input[readonly]:hover {
+                background-color: #f5f5f5;
+                border-color: #e0e0e0;
+            }
             
             /* Placeholder styles */
             input::placeholder,
@@ -297,16 +346,35 @@
                 ProductDTO product = (ProductDTO) request.getAttribute("product");
                 String checkError = (String) request.getAttribute("checkError");
                 String message = (String) request.getAttribute("message");
+                String keyword = (String) request.getAttribute("keyword");
+                boolean isEdit = request.getAttribute("isEdit") != null;
         %>
         <div class="container">
-            <h1>Product Management</h1>
+            <h1><%=isEdit ? "Edit Product" : "Add New Product"%></h1>
+            
+            <% if(keyword != null && !keyword.isEmpty()) { %>
+                <a href="ProductController?action=searchProduct&strKeyword=<%=keyword%>" class="back-link">
+                    ← Back to Product List
+                </a>
+            <% } else { %>
+                <a href="welcome.jsp" class="back-link">
+                    ← Back to Dashboard
+                </a>
+            <% } %>
+            
             <form action="MainController" method="post">
-                <input type="hidden" name="action" value="addProduct"/>
+                <input type="hidden" name="action" value="<%=isEdit ? "updateProduct" : "addProduct"%>"/>
+               
+                <% if(keyword != null) { %>
+                    <input type="hidden" name="keyword" value="<%=keyword%>"/>
+                <% } %>
+                
                 <div>
                     <label for="id">Product ID</label> 
                     <input type="text" name="id" id="id" required="required"
                            value="<%=product!=null?product.getId():""%>"
-                           placeholder="Enter unique product ID"/>
+                           placeholder="Enter unique product ID"
+                           <%=isEdit ? "readonly" : ""%>/>
                 </div>
                 <div>
                     <label for="name">Product Name</label> 
@@ -346,8 +414,7 @@
                     </div>
                 </div>
                 <div>
-                    <input type="submit" value="Add Product"/>
-                    <input type="reset" value="Reset Form"/>
+                    <input type="submit" value="<%=isEdit ? "Update Product" : "Add Product"%>"/>
                 </div>
             </form>
             

@@ -38,6 +38,10 @@ public class ProductController extends HttpServlet {
                 url = handleProductSearching(request, response);
             } else if (action.equals("changeProductStatus")) {
                 url = handleProductStatusChanging(request, response);
+            } else if (action.equals("editProduct")) {
+                url = handleProductEditing(request, response);
+            } else if (action.equals("updateProduct")) {
+                url = handleProductUpdating(request, response);
             }
 
         } catch (Exception e) {
@@ -146,9 +150,86 @@ public class ProductController extends HttpServlet {
     }
 
     private String handleProductStatusChanging(HttpServletRequest request, HttpServletResponse response) {
-        String productId = request.getParameter("productId");
-        boolean check = pdao.updateProductStatus(productId, false);
+        if (AuthUtils.isAdmin(request)) {
+            String productId = request.getParameter("productId");
+            boolean check = pdao.updateProductStatus(productId, false);
+        }
         return handleProductSearching(request, response);
+    }
+
+    private String handleProductEditing(HttpServletRequest request, HttpServletResponse response) {
+        if (AuthUtils.isAdmin(request)) {
+            String productId = request.getParameter("productId");
+            String keyword = request.getParameter("strKeyword");
+            ProductDTO product = pdao.getProductByID(productId);
+            if (product != null) {
+                request.setAttribute("product", product);
+                request.setAttribute("keyword", keyword);
+                request.setAttribute("isEdit", true);
+                return "productForm.jsp";
+            } else {
+                request.setAttribute("checkError", "Product not found!");
+            }
+        }
+        return handleProductSearching(request, response);
+    }
+
+    private String handleProductUpdating(HttpServletRequest request, HttpServletResponse response) {
+        String checkError = "";
+        String message = "";
+        String keyword = request.getParameter("keyword");
+
+        if (AuthUtils.isAdmin(request)) {
+            // Lấy thông tin từ form
+            String id = request.getParameter("id");
+            String name = request.getParameter("name");
+            String image = request.getParameter("image");
+            String description = request.getParameter("description");
+            String price = request.getParameter("price");
+            String size = request.getParameter("size");
+            String status = request.getParameter("status");
+
+            double price_value = 0;
+            try {
+                price_value = Double.parseDouble(price);
+            } catch (Exception e) {
+                checkError = "Invalid price format!";
+            }
+
+            boolean status_value = false;
+            try {
+                status_value = Boolean.parseBoolean(status);
+            } catch (Exception e) {
+            }
+
+            // Kiểm tra lỗi
+            if (price_value < 0) {
+                checkError += "<br/>Price must be greater than zero!";
+            }
+
+            if (checkError.isEmpty()) {
+                ProductDTO product = new ProductDTO(id, name, image, description, price_value, size, status_value);
+
+                if (pdao.update(product)) {
+                    message = "Update product successfully!";
+                    // Quay về trang welcome với từ khóa tìm kiếm
+                    request.setAttribute("keyword", keyword);
+                    return handleProductSearching(request, response);
+                } else {
+                    checkError = "Can not update product!";
+                }
+            }
+
+            // Nếu có lỗi, hiển thị lại form với thông tin đã nhập
+            ProductDTO product = new ProductDTO(id, name, image, description, price_value, size, status_value);
+            request.setAttribute("product", product);
+            request.setAttribute("isEdit", true);
+
+        }
+        request.setAttribute("checkError", checkError);
+        request.setAttribute("message", message);
+        request.setAttribute("keyword", keyword);
+        return "productForm.jsp";
     }
 
 }

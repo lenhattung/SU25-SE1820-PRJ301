@@ -36,6 +36,7 @@ public class MainController extends HttpServlet {
         return "listProducts".equals(action)
                 || "addProduct".equals(action)
                 || "updateProduct".equals(action)
+                || "editProduct".equals(action)
                 || "deleteProduct".equals(action)
                 || "searchProduct".equals(action)
                 || "changeProductStatus".equals(action);
