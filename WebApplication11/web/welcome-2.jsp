@@ -6,18 +6,6 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
-
-<!-- Tạo các biến dùng nhiều lần -->
-<c:set var="currentUser" value="${sessionScope.user}" />
-<c:set var="isLoggedIn" value="${not empty currentUser}" />
-<c:set var="isAdmin" value="${currentUser.roleID eq 'AD'}" />
-<c:set var="keyword" value="${requestScope.keyword}" />
-<c:set var="productList" value="${requestScope.list}" />
-<c:set var="hasKeyword" value="${not empty keyword}" />
-<c:set var="hasProducts" value="${not empty productList}" />
-<c:set var="productCount" value="${fn:length(productList)}" />
-<c:set var="keywordParam" value="${hasKeyword ? keyword : ''}" />
-
 <!DOCTYPE html>
 <html>
     <head>
@@ -306,13 +294,13 @@
     <body>
         <!-- Kiểm tra đăng nhập -->
         <c:choose>
-            <c:when test="${not isLoggedIn}">
+            <c:when test="${empty sessionScope.user}">
                 <c:redirect url="MainController"/>
             </c:when>
             <c:otherwise>
                 <div class="container">
                     <div class="header-section">
-                        <h1>Welcome ${currentUser.fullName}!</h1>
+                        <h1>Welcome ${sessionScope.user.fullName}!</h1>
                         <div>
                             <a href="MainController?action=logout" class="logout-btn">Logout</a>
                         </div>
@@ -322,25 +310,25 @@
                         <label class="search-label">Search by name:</label>
                         <form action="ProductController" method="post" class="search-form">
                             <input type="hidden" name="action" value="searchProduct"/>
-                            <input type="text" name="strKeyword" value="${keywordParam}" 
+                            <input type="text" name="strKeyword" value="${not empty requestScope.keyword ? requestScope.keyword : ''}" 
                                    class="search-input" placeholder="Enter product name..."/>
                             <input type="submit" value="Search" class="search-btn"/>
                         </form>
                     </div>
 
                     <!-- Hiển thị nút Add Product nếu là admin -->
-                    <c:if test="${isAdmin}">
+                    <c:if test="${sessionScope.user.roleID eq 'AD'}">
                         <a href="productForm.jsp" class="add-product-btn">Add New Product</a>
                     </c:if>
 
                     <!-- Xử lý danh sách sản phẩm -->
                     <c:choose>
-                        <c:when test="${hasProducts and productCount == 0}">
+                        <c:when test="${not empty requestScope.list and fn:length(requestScope.list) == 0}">
                             <div class="no-results">
                                 No products have names that match the keyword!
                             </div>
                         </c:when>
-                        <c:when test="${hasProducts and productCount > 0}">
+                        <c:when test="${not empty requestScope.list and fn:length(requestScope.list) > 0}">
                             <div class="table-container">
                                 <table>
                                     <thead>
@@ -351,36 +339,36 @@
                                             <th>Price</th>
                                             <th>Size</th>
                                             <th>Status</th>
-                                            <c:if test="${isAdmin}">
+                                            <c:if test="${sessionScope.user.roleID == 'AD'}">
                                                 <th>Action</th>
                                             </c:if>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <c:forEach var="product" items="${productList}">
+                                        <c:forEach var="product" items="${requestScope.list}">
                                             <tr>
                                                 <td>${product.id}</td>
                                                 <td>${product.name}</td>
                                                 <td>${product.description}</td>
-                                                <td class="price">VND ${product.price}</td>
+                                                <td class="price">$${product.price}</td>
                                                 <td>${product.size}</td>
                                                 <td class="${product.status ? 'status-true' : 'status-false'}">
                                                     ${product.status ? 'Active' : 'Inactive'}
                                                 </td>
-                                                <c:if test="${isAdmin}">
+                                                <c:if test="${sessionScope.user.roleID == 'AD'}">
                                                     <td>
                                                         <div class="action-buttons">
                                                             <form action="MainController" method="post">
                                                                 <input type="hidden" name="action" value="editProduct"/>
                                                                 <input type="hidden" name="productId" value="${product.id}"/>
-                                                                <input type="hidden" name="strKeyword" value="${keywordParam}" />
+                                                                <input type="hidden" name="strKeyword" value="${not empty requestScope.keyword ? requestScope.keyword : ''}" />
                                                                 <input type="submit" value="Edit" class="edit-btn" />
                                                             </form>
                                                                 
                                                             <form action="MainController" method="post" class="delete-form">
                                                                 <input type="hidden" name="action" value="changeProductStatus"/>
                                                                 <input type="hidden" name="productId" value="${product.id}"/>
-                                                                <input type="hidden" name="strKeyword" value="${keywordParam}" />
+                                                                <input type="hidden" name="strKeyword" value="${not empty requestScope.keyword ? requestScope.keyword : ''}" />
                                                                 <input type="submit" value="Delete" class="delete-btn"
                                                                        onclick="return confirm('Are you sure you want to delete this product?')"/>
                                                             </form>
