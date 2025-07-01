@@ -32,6 +32,8 @@
 <%
     String pageTitle = isEdit ? "Edit Product" : "Add New Product";
 %>
+
+<!-- % @include file="header.jsp" %  -->
 <jsp:include page="header.jsp">
     <jsp:param name="pageTitle" value="<%=pageTitle%>" />
     <jsp:param name="additionalCSS" value="product.css" />
