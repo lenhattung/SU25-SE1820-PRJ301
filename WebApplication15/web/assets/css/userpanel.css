@@ -1,0 +1,287 @@
+/* ===== USERPANEL.CSS - Styles cho user panel ===== */
+
+.user-panel {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.user-avatar {
+    font-size: 2rem;
+    color: #ffd700;
+}
+
+.user-details {
+    display: flex;
+    flex-direction: column;
+}
+
+.user-greeting {
+    display: flex;
+    flex-direction: column;
+}
+
+.greeting-text {
+    font-size: 0.8rem;
+    opacity: 0.9;
+}
+
+.user-name {
+    font-weight: 600;
+    font-size: 1rem;
+}
+
+.user-role {
+    margin-top: 2px;
+}
+
+.role-badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 2px 8px;
+    border-radius: 12px;
+    font-size: 0.7rem;
+    font-weight: 500;
+}
+
+.admin-badge {
+    background-color: #ffd700;
+    color: #333;
+}
+
+.user-badge {
+    background-color: rgba(255,255,255,0.2);
+    color: white;
+}
+
+.role-badge i {
+    margin-right: 4px;
+    font-size: 0.6rem;
+}
+
+.user-actions {
+    position: relative;
+}
+
+.user-menu-btn {
+    background: none;
+    border: none;
+    color: white;
+    padding: 8px;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+}
+
+.user-menu-btn:hover {
+    background-color: rgba(255,255,255,0.1);
+}
+
+.user-dropdown {
+    right: 0;
+    left: auto;
+    min-width: 250px;
+}
+
+.dropdown-header {
+    padding: 15px;
+    border-bottom: 1px solid #eee;
+    background-color: #f8f9fa;
+}
+
+.user-info-dropdown strong {
+    display: block;
+    font-size: 1rem;
+    color: #333;
+}
+
+.user-info-dropdown small {
+    color: #666;
+    font-size: 0.8rem;
+}
+
+.dropdown-divider {
+    height: 1px;
+    background-color: #eee;
+    margin: 0;
+}
+
+.logout-link {
+    color: #dc3545 !important;
+}
+
+.logout-link:hover {
+    background-color: #fff5f5 !important;
+}
+
+/* Notification panel */
+.notification-panel {
+    position: relative;
+}
+
+.notification-btn {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 1.2rem;
+    cursor: pointer;
+    padding: 8px;
+    border-radius: 4px;
+    position: relative;
+    transition: background-color 0.3s ease;
+}
+
+.notification-btn:hover {
+    background-color: rgba(255,255,255,0.1);
+}
+
+.notification-badge {
+    position: absolute;
+    top: 0;
+    right: 0;
+    background-color: #dc3545;
+    color: white;
+    border-radius: 50%;
+    width: 18px;
+    height: 18px;
+    font-size: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+}
+
+.notification-dropdown {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+    width: 350px;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: all 0.3s ease;
+    z-index: 1001;
+}
+
+.notification-dropdown.show {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.notification-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    border-bottom: 1px solid #eee;
+}
+
+.notification-header h4 {
+    margin: 0;
+    color: #333;
+}
+
+.mark-read-btn {
+    background: none;
+    border: none;
+    color: #007bff;
+    cursor: pointer;
+    font-size: 0.8rem;
+}
+
+.notification-list {
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+.notification-item {
+    display: flex;
+    padding: 12px 15px;
+    border-bottom: 1px solid #f0f0f0;
+    transition: background-color 0.3s ease;
+}
+
+.notification-item:hover {
+    background-color: #f8f9fa;
+}
+
+.notification-item.unread {
+    background-color: #fff3cd;
+}
+
+.notification-item i {
+    margin-right: 10px;
+    margin-top: 2px;
+}
+
+.notification-content p {
+    margin: 0 0 4px 0;
+    font-size: 0.9rem;
+}
+
+.notification-content small {
+    color: #666;
+    font-size: 0.8rem;
+}
+
+.notification-footer {
+    padding: 10px 15px;
+    text-align: center;
+    border-top: 1px solid #eee;
+}
+
+.notification-footer a {
+    color: #007bff;
+    text-decoration: none;
+    font-size: 0.9rem;
+}
+
+/* Auth buttons for non-logged users */
+.auth-buttons {
+    display: flex;
+    gap: 10px;
+}
+
+.btn {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.btn-primary {
+    background-color: #007bff;
+    color: white;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+    transform: translateY(-2px);
+}
+
+.btn-outline {
+    background-color: transparent;
+    color: white;
+    border: 2px solid white;
+}
+
+.btn-outline:hover {
+    background-color: white;
+    color: #333;
+}
