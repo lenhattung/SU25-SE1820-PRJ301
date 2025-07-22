@@ -82,6 +82,9 @@ JSTL: jakarta.servlet.jsp.jstl-api-2.0.0.jar
 Nên kiểm tra cấu hình welcome-file trong Deployment Descriptor (web.xml), mặc nhiên đã được cấu hình để tự động chạy: “login.jsp”
 Đọc kỹ “Regulations_for_Participating_in_the_PE_PRJ301_Examination.pdf”
 
+
+Link nhóm: https://docs.google.com/spreadsheets/d/19DTYWDWBzC0xU_6_OvdfAFLgTxKjsTXxsYRiqDsSZSA/edit?usp=sharing
+
 Mã đề thi thử: PE_PRJ301_THITHU_300475
 
 ---------
